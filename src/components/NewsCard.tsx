@@ -4,7 +4,7 @@ interface NewsCardProps {
   title: string;
   description: string;
   date: string;
-  severity: "high" | "medium" | "low";
+  severity: "high" | "medium" | "low" | "minor";
   affectedUsers: string;
   company: string;
 }
@@ -25,6 +25,8 @@ const NewsCard: React.FC<NewsCardProps> = ({
         return "from-orange-600/20 to-orange-800/20 border-orange-500/30";
       case "low":
         return "from-yellow-600/20 to-yellow-800/20 border-yellow-500/30";
+      case "minor":
+        return "from-green-600/20 to-green-800/20 border-green-500/30";
       default:
         return "from-gray-600/20 to-gray-800/20 border-gray-500/30";
     }
@@ -38,6 +40,8 @@ const NewsCard: React.FC<NewsCardProps> = ({
         return "Средняя";
       case "low":
         return "Низкая";
+      case "minor":
+        return "Незначительная";
       default:
         return "Неизвестная";
     }
@@ -54,7 +58,11 @@ const NewsCard: React.FC<NewsCardProps> = ({
               ? "bg-red-500/20 text-red-300"
               : severity === "medium"
                 ? "bg-orange-500/20 text-orange-300"
-                : "bg-yellow-500/20 text-yellow-300"
+                : severity === "low"
+                  ? "bg-yellow-500/20 text-yellow-300"
+                  : severity === "minor"
+                    ? "bg-green-500/20 text-green-300"
+                    : "bg-gray-500/20 text-gray-300"
           }`}
         >
           {getSeverityText(severity)}
